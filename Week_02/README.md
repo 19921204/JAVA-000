@@ -1,8 +1,8 @@
-#学习笔记
------
-###作业一 根据上述自己对于 1 和 2 的演示，写一段对于不同 GC 的总结
+**学习笔记**
+-------------
+### 作业一 根据上述自己对于 1 和 2 的演示，写一段对于不同 GC 的总结
 #### 1、串行GC
-使用单个线程进行垃圾回收，年轻代使用**复制算法**，回收的效率没有并行gc高
+使用单个线程进行垃圾回收，**年轻代**使用**复制算法**，回收的效率没有并行gc高
 
 #### 2、并行GC
 使用cpu核心数的线程进行垃圾回收，相比串行gc用多个线程并行进行垃圾回收。**年轻代**的并行gc有两个都采用的是**复制算法**，一个是ParNew，它的特点是串行gc的多线程版本，另一个是Parallel Scavenge收集器，它相比ParNew的进步是自适应的参数配置，它是一个注重吞吐量的gc
@@ -21,7 +21,7 @@ G1是CMS的改进版本，G1将整个堆默认分成2048个region，进行回收
 
 
 
-###作业二 写一段代码，使用 HttpClient 或 OkHttp 访问 http://localhost:8801
+### 作业二 写一段代码，使用 HttpClient 或 OkHttp 访问 http://localhost:8801
 ```java
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
