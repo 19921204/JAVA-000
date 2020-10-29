@@ -7,7 +7,7 @@
 #### 2、并行GC
 使用cpu核心数的线程进行垃圾回收，相比串行gc用多个线程并行进行垃圾回收。**新生代**的并行gc有两个都采用的是**标记-复制算法**，一个是ParNew，它的特点是串行gc的多线程版本，另一个是Parallel Scavenge收集器，它与ParNew的一个重要区别是自适应的调节策略，它是一个注重吞吐量的gc
 
-参数配置：
+参数配置：<br>
 -XX:+UseParallelGC jdk8默认的垃圾收集器，新生代使用Parallel Scavenge，老年代使用Parallel Old<br>
 -XX:GCTimeRatio 垃圾收集时间占总时间的比率，默认99<br>
 -XX:+UseAdaptiveSizePolicy 开启自适应调节策略，不需要指定新生代的大小(-Xmn)、Eden与Survivor区的比例(-XX:SurvivorRatio)、晋升老年代对象大小(-XX:PretenureSizeThreshold)等细节参数
