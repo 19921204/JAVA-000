@@ -14,8 +14,9 @@ public class RandomLoadBalancerRouter implements HttpEndpointRouter {
 
     @Override
     public String route(List<String> endpoints) {
-        int nextInt = random.nextInt(100);
-        int slot = nextInt % endpoints.size();
+        int size = endpoints.size();
+        int nextInt = random.nextInt(size * 100);
+        int slot = nextInt % size;
         return endpoints.get(slot);
     }
 }
