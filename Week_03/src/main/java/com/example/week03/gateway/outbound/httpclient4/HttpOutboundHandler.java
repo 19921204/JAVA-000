@@ -9,7 +9,6 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.*;
 
-import java.net.URI;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
@@ -19,11 +18,9 @@ import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class HttpOutboundHandler {
-
     private ExecutorService proxyService;
     private String backendUrl;
     private HttpEndpointRouter router;
-//    private NettyHttpClient httpclient;
 
     public HttpOutboundHandler(String backendUrl) {
         this.backendUrl = backendUrl;
@@ -34,7 +31,6 @@ public class HttpOutboundHandler {
         proxyService = new ThreadPoolExecutor(cores, cores,
                 keepAliveTime, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(queueSize),
                 new NamedThreadFactory("proxyService"), handler);
-//        httpclient = new NettyHttpClient();
         router = new RandomLoadBalancerRouter();
     }
 
