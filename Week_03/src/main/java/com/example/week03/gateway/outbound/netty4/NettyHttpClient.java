@@ -8,14 +8,16 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpRequestEncoder;
+import io.netty.handler.codec.http.HttpResponseDecoder;
 
 import java.net.URI;
 
 public class NettyHttpClient {
     private NettyHttpClientOutboundHandler clientHandler = new NettyHttpClientOutboundHandler();
 
-    public String execute(String url) throws Exception {
+    public String execute(final FullHttpRequest fullRequest) throws Exception {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
         try {
@@ -34,17 +36,10 @@ public class NettyHttpClient {
                 }
             });
 
-            URI uri = new URI(url);
+            URI uri = new URI(fullRequest.uri());
             // Start the client.
             ChannelFuture f = b.connect(uri.getHost(), uri.getPort()).sync();
-
-            // 构建http请求
-            DefaultFullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, url);
-            request.headers().set(HttpHeaders.Names.HOST, uri.getHost());
-            request.headers().set(HttpHeaders.Names.CONNECTION, HttpHeaders.Values.KEEP_ALIVE);
-            request.headers().set(HttpHeaders.Names.CONTENT_LENGTH, request.content().readableBytes());
-
-            f.channel().writeAndFlush(request);
+            f.channel().writeAndFlush(fullRequest);
             f.channel().closeFuture().sync();
         } finally {
             workerGroup.shutdownGracefully();

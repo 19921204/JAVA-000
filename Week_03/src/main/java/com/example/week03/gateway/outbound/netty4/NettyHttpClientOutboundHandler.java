@@ -21,7 +21,6 @@ public class NettyHttpClientOutboundHandler extends ChannelInboundHandlerAdapter
             data += buf.toString(io.netty.util.CharsetUtil.UTF_8);
             buf.release();
         }
-
     }
 
     String getData() {

@@ -35,20 +35,20 @@ public class HttpOutboundHandler {
     }
 
     public void handle(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx) {
-        String backendUrl = selectBackendUrl();
-        final String url = backendUrl + fullRequest.uri();
-        proxyService.submit(() -> fetchGet(fullRequest, ctx, url));
+        route(fullRequest);
+        proxyService.submit(() -> fetchGet(fullRequest, ctx));
     }
 
-    private String selectBackendUrl() {
+    private void route(final FullHttpRequest fullRequest) {
         List<String> backendUrls = Stream.of(this.backendUrl.split(",")).collect(Collectors.toList());
-        return router.route(backendUrls);
+        String host = router.route(backendUrls);
+        fullRequest.setUri(host + fullRequest.uri());
     }
 
-    private void fetchGet(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx, final String url) {
+    private void fetchGet(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx) {
         try {
             NettyHttpClient client = new NettyHttpClient();
-            String body = client.execute(url);
+            String body = client.execute(fullRequest);
             handleResponse(fullRequest, ctx, body);
         } catch (Exception e) {
             e.printStackTrace();
