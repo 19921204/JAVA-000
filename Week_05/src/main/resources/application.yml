@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    active:
+  custom-starter:
+    enabled: true
+    students:
+      - {id: 1, name: kevin}
+      - {id: 2, name: tom}
