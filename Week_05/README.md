@@ -6,7 +6,7 @@
 1. 使用@Autowired进行属性的装配
 2. 使用set方法进行属性赋值
 3. 使用构造方法进行属性赋值
--------------------------
+
 代码实现：
 1. 使用@Autowired进行属性的装配
 ```java
@@ -21,7 +21,7 @@ public class A {
     B b;
 }
 ```
------------
+
 2. 使用set方法进行属性赋值
 ```java
 package com.geek.week_05.bean;
@@ -40,7 +40,6 @@ public class B {
 }
 
 ```
------------
 
 3. 使用构造方法进行属性赋值
 ```java
@@ -53,19 +52,17 @@ public class C {
     }
 }
 ```
------------
 
 #### 作业二 给前面课程提供的 Student/Klass/School 实现自动配置和 Starter
 思路：<br>
 1. 添加spring.factories文件
 2. 添加配置类SpringBootConfiguration
 3. 添加获取参数配置类SpringBootPropertiesConfiguration
------------------------
-代码实现：
 
-配置文件如下
+配置文件如下<br>
+
 ![avatar](1605523205688.jpg)
---------
+
 获取用户配置
 ```java
 import com.example.springbootstarterdemo.bean.Student;
@@ -82,7 +79,7 @@ public class SpringBootPropertiesConfiguration {
     private List<Student> students;
 }
 ```
------
+
 将Klass/School放入spring容器
 
 ```java
